@@ -1,4 +1,5 @@
 " .vimrc
+" Jae Song
 
 set nocompatible              " be iMproved, required
 filetype off                  " required
@@ -78,3 +79,6 @@ set foldmethod=indent   " fold based on indent level
 
 " go fmt on save
 au BufWritePost *.go !gofmt -w %
+
+" filetype spacing
+autocmd FileType javascript setlocal ts=2 sts=2 sw=2

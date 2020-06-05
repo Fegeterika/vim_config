@@ -72,7 +72,7 @@ nnoremap <leader>m za
 set foldmethod=indent " fold based on indent level
 
 " NERDTree
-map <leader>n :NERDTreeToggle<CR>
+map <C-n> :NERDTreeToggle<CR>
 
 " Clipboard
 set clipboard=unnamed

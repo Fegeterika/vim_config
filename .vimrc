@@ -22,7 +22,13 @@ Plugin 'git://github.com/airblade/vim-gitgutter.git'
 Plugin 'scrooloose/nerdtree'
 Plugin 'fatih/vim-go'
 Plugin 'kien/ctrlp.vim'
+Plugin 'epmatsw/ag.vim'
+Plugin 'Valloric/YouCompleteMe'
 Plugin 'vim-syntastic/syntastic'
+Plugin 'pangloss/vim-javascript'    " JavaScript support
+Plugin 'leafgarland/typescript-vim' " TypeScript syntax
+Plugin 'maxmellon/vim-jsx-pretty'   " JS and JSX syntax
+Plugin 'jparise/vim-graphql'        " GraphQL syntax
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -39,8 +45,34 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_python_checkers=['flake8']
 
-" remap nerdtree shortcut
-map <C-n> :NERDTreeToggle<CR>
+" Set leader key
+let mapleader=" "
+
+" CTRLP
+nnoremap <leader>fs :CtrlP<SPACE>
+
+" AG
+if executable('ag')
+    " Use ag over grep "
+    set grepprg=ag\ --nogroup\ --nocolor\ --column
+
+    " Use ag in CtrlP for listing files "
+    let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+    let g:ctrlp_use_caching = 0
+endif
+nnoremap <leader>ts :Ag<SPACE>
+nnoremap <leader>ss :Ag<SPACE><CR>
+
+"YCM
+nnoremap <leader>gd :YcmCompleter GoTo<CR>
+nnoremap <leader>gf :YcmCompleter FixIt<CR>
+
+" Fold
+nnoremap <leader>m za
+set foldmethod=indent " fold based on indent level
+
+" NERDTree
+map <leader>n :NERDTreeToggle<CR>
 
 " Clipboard
 set clipboard=unnamed
@@ -82,6 +114,7 @@ set showmatch
 " searching
 set incsearch
 set hlsearch
+
 " turn off search highlight
 nnoremap <leader><space> :nohlsearch<CR>
 
@@ -89,12 +122,6 @@ nnoremap <leader><space> :nohlsearch<CR>
 set foldenable
 set foldlevelstart=10   " open most folds by default
 set foldnestmax=10      " 10 nested fold max
-" space open/closes folds
-nnoremap <space> za
-set foldmethod=indent   " fold based on indent level
-
-" go fmt on save
-au BufWritePost *.go !gofmt -w %
 
 "split navigations
 nnoremap <C-J> <C-W><C-J>
@@ -102,11 +129,14 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
+" Go
+" go fmt on save
+au BufWritePost *.go !gofmt -w %
+
 " javascript
-au BufNewFile,BufRead *.js, *.html, *.css
-    \set tabstop=2
-    \ softtabstop=2
-    \ shiftwidth=2
+autocmd FileType html setlocal ts=2 sts=2 sw=2
+autocmd FileType javascript setlocal ts=2 sts=2 sw=2
+autocmd FileType typescript setlocal ts=2 sts=2 sw=2
 
 " python
 au BufNewFile,BufRead *.py

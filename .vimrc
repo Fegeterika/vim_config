@@ -73,6 +73,7 @@ set foldmethod=indent " fold based on indent level
 
 " NERDTree
 map <C-n> :NERDTreeToggle<CR>
+let NERDTreeIgnore = ['\.pyc$', '__pycache__']
 
 " Clipboard
 set clipboard=unnamed
@@ -98,6 +99,9 @@ set tabstop=4
 set softtabstop=4
 set expandtab
 set shiftwidth=4
+
+" make backspacework
+set backspace=indent,eol,start
 
 " window
 set splitright
@@ -132,6 +136,9 @@ nnoremap <C-H> <C-W><C-H>
 " Go
 " go fmt on save
 au BufWritePost *.go !gofmt -w %
+
+" yaml
+autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 
 " javascript
 autocmd FileType html setlocal ts=2 sts=2 sw=2

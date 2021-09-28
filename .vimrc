@@ -20,11 +20,12 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'itchyny/lightline.vim'
 Plugin 'git://github.com/airblade/vim-gitgutter.git'
 Plugin 'scrooloose/nerdtree'
-Plugin 'fatih/vim-go'
 Plugin 'kien/ctrlp.vim'
 Plugin 'epmatsw/ag.vim'
-Plugin 'Valloric/YouCompleteMe'
-Plugin 'vim-syntastic/syntastic'
+Plugin 'neoclide/coc.nvim'          " host language servers
+" Go
+Plugin 'fatih/vim-go'
+" Javascript & Typescript
 Plugin 'pangloss/vim-javascript'    " JavaScript support
 Plugin 'leafgarland/typescript-vim' " TypeScript syntax
 Plugin 'maxmellon/vim-jsx-pretty'   " JS and JSX syntax
@@ -34,19 +35,20 @@ Plugin 'jparise/vim-graphql'        " GraphQL syntax
 call vundle#end()            " required
 filetype plugin indent on    " required
 
-" syntastic configs
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-let g:syntastic_python_checkers=['flake8']
-
 " Set leader key
 let mapleader=" "
+
+" CoC
+" Use `[g` and `]g` to navigate diagnostics
+" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
 
 " CTRLP
 nnoremap <leader>fs :CtrlP<SPACE>
@@ -62,10 +64,6 @@ if executable('ag')
 endif
 nnoremap <leader>ts :Ag<SPACE>
 nnoremap <leader>ss :Ag<SPACE><CR>
-
-"YCM
-nnoremap <leader>gd :YcmCompleter GoTo<CR>
-nnoremap <leader>gf :YcmCompleter FixIt<CR>
 
 " Fold
 nnoremap <leader>m za
@@ -140,10 +138,13 @@ au BufWritePost *.go !gofmt -w %
 " yaml
 autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 
-" javascript
+" javascript and typescript
 autocmd FileType html setlocal ts=2 sts=2 sw=2
 autocmd FileType javascript setlocal ts=2 sts=2 sw=2
 autocmd FileType typescript setlocal ts=2 sts=2 sw=2
+
+autocmd QuickFixCmdPost [^l]* nested cwindow
+autocmd QuickFixCmdPost    l* nested lwindow
 
 " python
 au BufNewFile,BufRead *.py

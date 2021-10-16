@@ -22,6 +22,7 @@ Plugin 'git://github.com/airblade/vim-gitgutter.git'
 Plugin 'scrooloose/nerdtree'
 Plugin 'kien/ctrlp.vim'
 Plugin 'epmatsw/ag.vim'
+Plugin 'mg979/vim-visual-multi'
 Plugin 'neoclide/coc.nvim'          " host language servers
 " Go
 Plugin 'fatih/vim-go'
@@ -68,6 +69,14 @@ nnoremap <leader>ss :Ag<SPACE><CR>
 " Fold
 nnoremap <leader>m za
 set foldmethod=indent " fold based on indent level
+
+" vim-visual-multi
+let g:VM_maps = {}
+let g:VM_maps['Find Under']         = '<C-d>'           " replace C-n
+let g:VM_maps['Find Subword Under'] = '<C-d>'           " replace visual C-n
+let g:VM_maps['Find Subword Under'] = '<C-d>'           " replace visual C-n
+let g:VM_maps["Select Cursor Down"] = '<C-j>'      " start selecting down
+let g:VM_maps["Select Cursor Up"]   = '<C-k>'        " start selecting up
 
 " NERDTree
 map <C-n> :NERDTreeToggle<CR>

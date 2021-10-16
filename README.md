@@ -4,7 +4,9 @@ Just saving my vim config file...
 ## Plugins
 Vundle: https://github.com/VundleVim/Vundle.vim
 
-### CoC for lang host service
+Most plugins should work once installed via `PluginInstall` command in vim.
+
+### CoC
 CoC: https://vimawesome.com/plugin/coc-nvim
 https://github.com/neoclide/coc.nvim/wiki/Install-coc.nvim
 
